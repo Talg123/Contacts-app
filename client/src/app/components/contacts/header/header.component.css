@@ -1,0 +1,25 @@
+.app-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inputField{
+    width: 90%;
+}
+
+.contactsNumContainer {
+    margin-top: 10px;
+    border-radius: 1px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray 
+
+  }
+
+
+

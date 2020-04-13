@@ -1,0 +1,30 @@
+
+.app-contacts{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+.app-card{
+  height: 600px;
+  width: 800px;
+}
+
+.buttons{
+  justify-content: flex-end;
+  display: flex; 
+   
+}
+
+button{
+  background-color:silver;
+}
+
+.delete-btn{
+  margin-right: 5px;
+}
+
+

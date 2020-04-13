@@ -1,0 +1,96 @@
+<div class="app-contacts">
+    <div class="app-card">
+        <mat-card>
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput required placeholder="Enter your name" [(ngModel)]="nameValue" [formControl]="editForm.controls['name']">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Telephone</mat-label>
+                    <input matInput required  placeholder="Enter your telephone number" [(ngModel)]="telephoneValue" [formControl]="editForm.controls['telephone']">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Picture</mat-label>
+                    <input matInput  placeholder="Enter your picture" [(ngModel)]="pictureValue" [formControl]="editForm.controls['picture']">
+                </mat-form-field>
+
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-list  #chipList aria-label="Roles selection">
+                        <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(role)">
+                            {{role}}
+                        </mat-chip>
+                        <input placeholder="New role..." [matChipInputFor]="chipList" 
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+
+                <mat-slide-toggle  [(ngModel)]="isActiveValue" [formControl]="editForm.controls['isActive']">Is active</mat-slide-toggle>
+
+                <div class="wrapper-buttons">
+                    <button class="backButton" mat-raised-button (click)="clickBack()" color="accent">Back</button>
+                    <button type="submit" class="submitButton" mat-raised-button color="primary" [disabled]="!isSubmitEnabled()">Submit</button>
+                </div>
+            </form>
+            <div class="img-container">
+                <img src="{{checkPicture()}}" alt="" />
+            </div>
+
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="app-contacts">
+    <div class="app-card">
+        <mat-card>
+            <div class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput required placeholder="Enter your name" [(ngModel)]="nameValue">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Picture</mat-label>
+                    <input matInput required placeholder="Enter your picture" [(ngModel)]="pictureValue">
+                </mat-form-field>
+
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-list required #chipList aria-label="Roles selection">
+                        <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(role)">
+                            {{role}}
+                        </mat-chip>
+                        <input placeholder="New role..." [matChipInputFor]="chipList" required
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+
+                <mat-slide-toggle required [(ngModel)]="isActiveValue">Is active</mat-slide-toggle>
+
+                <div class="wrapper-buttons">
+                    <button class="backButton" mat-raised-button (click)="clickBack()" color="accent">Back</button>
+                    <button class="submitButton" mat-raised-button color="primary" (click)="onSubmit()">Submit</button>
+                </div>
+            </div>
+            <div class="img-container">
+                <img src="{{checkPicture()}}" alt="" />
+            </div>
+
+        </mat-card>
+    </div>
+</div> -->

@@ -1,0 +1,56 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()">
+        </mat-checkbox> -->
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="clickOnLine($event,row)"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="picture">
+      <th mat-header-cell *matHeaderCellDef> Picture </th>
+     
+      <td mat-cell *matCellDef="let element"> <img src={{element.picture}} style="width: 75px;height:auto;"> </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef> Telephone </th>
+      <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef> Is Active </th>
+      <td mat-cell *matCellDef="let element" [ngStyle]="{'color': element.isActive? 'green' : 'red'}">{{ element.isActive ?  "True" : "False" }} </td>
+    </ng-container>
+    <ng-template #thenBlock>Content to render when condition is true.</ng-template>
+  
+    <ng-container matColumnDef ="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">  <button mat-button (click)="edit(element)">
+        <mat-icon >edit</mat-icon>
+      </button>
+       </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+
