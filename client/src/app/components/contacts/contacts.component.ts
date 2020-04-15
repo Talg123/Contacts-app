@@ -7,69 +7,65 @@ import { AlertDialogComponent } from '../shared/alert-dialog/alert-dialog.compon
 import { errorsMessage } from '../../common/const/text-app.const'
 import { HttpErrorResponse } from '@angular/common/http';
 
-export interface Iitems {
+export interface IItems {
   picture: string;
   name: string;
   isActive: boolean;
-
-}
+} // get this out to your models.ts
 
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css'],
-  providers: [ShareDataService]
+  providers: [ShareDataService] // this is wierd and not needed....
 })
 export class ContactsComponent implements OnInit {
 
-  filterItem: string
+  public filterItem: string
 
   constructor(private router: Router,
     private contactsService: ContactsService,
     private shareDataService: ShareDataService,
     private dialog: MatDialog) {
+  }
 
-    this.contactsService.getContacts().subscribe(response => {
+
+  async ngOnInit(): void {
+    await this.getContacts();
+  }
+  
+  private async getContacts(): void {
+    try {
+      const response = await this.contactsService.getContacts().toPromise();
       this.shareDataService.updateCotactList(response);
-    }, (ex: HttpErrorResponse) => {
+    } catch(e) {
       this.openAlertDialog(ex.error.message);
-    })
+    }
   }
 
-
-  ngOnInit(): void {
-  }
-
-  filterList(filter) {
+  public filterList(filter: string): void {
     this.filterItem = filter;
   }
 
-  addNewItem() {
-    this.router.navigate(['/item']);
+  public addNewItem(): void {
+    this.router.navigateByUrl('/item');
   }
 
-  deleteItem() {
+  public async deleteItem(): void {
     const rows = this.shareDataService.removeList;
     
-    if (rows.length == 0) {
+    if (rows.length === 0) {
       this.openAlertDialog(errorsMessage.DELETE_ERROR);
     }
     else {
       const ids = rows.map((item) => item.userID)
-      this.contactsService.deleteContact(ids).subscribe((res) => {
-        this.contactsService.getContacts().subscribe(response => {
-          this.shareDataService.removeList = [];
-          this.shareDataService.updateCotactList(response);
-        }, (ex: HttpErrorResponse) => {
-          this.openAlertDialog(ex.error.message);
-        })
-      }, (ex: HttpErrorResponse) => {
-        this.openAlertDialog(ex.error.message);
-      });
+      const res = await this.contactsService.deleteContact(ids).toPromise();
+      await this.getContacts();
+      this.shareDataService.removeList = []; // I wouldnt have never let this happen, you should make a getter/setter
     }
   }
 
-  openAlertDialog(error) {
+  public openAlertDialog(error: string): void {
     this.dialog.open(AlertDialogComponent, {
       data: {
         message: error,
