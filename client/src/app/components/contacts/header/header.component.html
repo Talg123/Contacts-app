@@ -1,7 +1,7 @@
 <div class="app-header">
 
     <mat-form-field class="inputField">
-        <input matInput placeholder="Search" #searchValue (keyup)="searchContact(searchValue.value)">
+        <input matInput placeholder="Search" (keyup)="searchContact($event)">
     </mat-form-field>
 
     <div class="contactsNumContainer">
